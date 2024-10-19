@@ -1,0 +1,53 @@
+Topic: Graph Theory and its Implementation in Board Games
+Group Members:
+Ibrahim Butt 24043
+Muhammad Tahir Ahmad 24151
+Ammara Khan 24133
+Sara Abid 24112
+Israr Hussain 24025
+
+
+GRAPH: A list of pairs of “things” called vertex/vertices, and lines between those points, called edges.
+𝐴 = {(1, 2), (1, 3), (3, 4), (4, 5)} 
+𝐵 = {(A, B), (B, C), (A, C), (A, D)} 
+𝐶 = {(LHR, KRA), (LHR, ISB), (FSD, SWL), (STD, MUL)}
+
+
+Total Edges: (n(n-1))/2
+
+
+Difference Between Undirected Graphs and Directed Gaphs:
+A directed graph is a graph where the edges have a direction, meaning each edge connects an ordered pair of vertices.
+An undirected graph is a graph where the edges have no direction, connecting pairs of vertices without any order.
+
+
+Graph Representation:
+
+Edge List
+Individual track of all edges
+Need to check all edges
+
+Adjacency List
+Track of all adjacent to a particular edge
+Need to check relevant list of adjacent 
+
+Adjacency Matrix
+Table in form of rows and columns that keep track of all possible edges in terms of YES/NO
+Only need to check one cell.
+
+
+Things we need for our area of research:
+How to traverse a graph
+Count neighbors of a vertex
+Deleting and inserting edges
+Path and cycle of vertices
+
+
+Graph in Board Games
+Most board games are played on a two-dimensional grid. 
+- Nodes represent the cells where game pieces are placed. 
+- Winning conditions involve finding paths (edges) with consecutive stones.
+
+
+Implementation
+Topics like graph theory, and recursion play crucial roles in modeling and solving the game.
