@@ -39,6 +39,7 @@ Only need to check one cell.
 Things we need for our area of research:
 How to traverse a graph
 Count neighbors of a vertex
+Count degree of a vertex(number of edges meeting at that vertex)
 Deleting and inserting edges
 Path and cycle of vertices
 
@@ -51,3 +52,10 @@ Most board games are played on a two-dimensional grid.
 
 Implementation
 Topics like graph theory, and recursion play crucial roles in modeling and solving the game.
+
+Graph coloring in board games
+Involves assigning different colors to the vertices of a graph such that no two adjacent vertices share the same color.
+Simplifies game design by managing player interactions and organizing regions.
+- Territory Colouring:  Assigning different colours to neighbouring territories.
+- Player moves: Useful in multiplayer games to minimize conflicts.
+- Puzzle Solving: No two adjacent players have the same colours.
