@@ -7,4 +7,5 @@
 19-10-24  Created Text File to store all changes and added the changes so far in it. Modified Slides of PowerPoint File.
 20-10-24  Added slides (Sara Abid)
 25-10-24  Renamed Text File
-30-10-24  started working on slides of graph theory in board games, and game stratergies using graph traversal (depth first searching, bredth first searching) 
+30-10-24  Started working on slides of graph theory in board games, and game stratergies using graph traversal (depth first searching, bredth first searching) 
+30-10-24  Started writing the sample code for the game implementation, using depth, bredth search, recursion, displaying board game as grapghs etc (in python)
