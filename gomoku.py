@@ -57,3 +57,80 @@ def check_win(board, row, col, symbol):
 
     return False
 
+
+def player_move(board, symbol):
+    while True:
+        row, col = map(int, input("Enter row and column: ").split())
+        if is_move_valid(board, row, col):
+            board[row][col] = symbol
+            return row, col
+        else:
+            print("Invalid move. Try again.")
+
+
+def list_valid_moves(board):
+    return [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if board[r][c] == '.']
+
+
+def evaluate_board(board, symbol):
+    score = 0
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]
+
+    for row in range(BOARD_SIZE):
+        for col in range(BOARD_SIZE):
+            if board[row][col] == symbol:
+                queue = [(row, col)]
+                visited = set(queue)
+                while queue:
+                    x, y = queue.pop(0)
+                    for dx, dy in directions:
+                        nx, ny = x + dx, y + dy
+                        if 0 <= nx < BOARD_SIZE and 0 <= ny < BOARD_SIZE:
+                            if board[nx][ny] == '.':
+                                score = score + 1
+                            elif board[nx][ny] == symbol and (nx, ny) not in visited:
+                                visited.add((nx, ny))
+                                queue.append((nx, ny))
+    return score
+
+
+# Coding AI for best possible moves:
+
+
+def play_game():
+    board = initialize_board(BOARD_SIZE)
+    current_player = "TahirBhai"
+    ai_symbol = 'X'
+    human_symbol = 'O'
+
+    display_board(board)
+
+    while True:
+        if current_player == "TahirBhai":
+            print("Your turn:")
+            row, col = player_move(board, human_symbol)
+            if check_win(board, row, col, human_symbol):
+                display_board(board)
+                print("TahirBhai wins!")
+                break
+            current_player = "AI"
+        else:
+            print("AI's turn:")
+            row, col = ai_move(board, ai_symbol)
+            if row is not None and col is not None:
+                board[row][col] = ai_symbol
+                if check_win(board, row, col, ai_symbol):
+                    display_board(board)
+                    print("AI wins!")
+                    break
+            current_player = "TahirBhai"
+
+        display_board(board)
+
+        if not list_valid_moves(board):
+            print("It's a draw!")
+            break
+
+
+play_game()
+
