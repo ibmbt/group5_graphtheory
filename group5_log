@@ -9,5 +9,4 @@
 25-10-24  Renamed Text File
 30-10-24  Started working on slides of graph theory in board games, and game stratergies using graph traversal (depth first searching, bredth first searching) 
 30-10-24  Started writing the sample code for the game implementation, using depth, bredth search, recursion, displaying board game as grapghs etc (in python)
-03-11-24  New slides added, Graph theory in Board games and examples.
-05-11-24  Added functions in code for user and ai turns, BFS for traversal of board and moves validator etc.
+11-03-24  New slides added, Graph theory in Board games and examples.
