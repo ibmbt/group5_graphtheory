@@ -11,3 +11,4 @@
 30-10-24  Started writing the sample code for the game implementation, using depth, bredth search, recursion, displaying board game as grapghs etc (in python)
 03-11-24  New slides added, Graph theory in Board games and examples.
 05-11-24  Added functions in code for user and ai turns, BFS for traversal of board and moves validator etc.
+07-11-24  Added Slides (Sara Abid)
