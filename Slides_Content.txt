@@ -21,6 +21,22 @@ A directed graph is a graph where the edges have a direction, meaning each edge 
 An undirected graph is a graph where the edges have no direction, connecting pairs of vertices without any order.
 
 
+Weighted Graphs
+Many graphs can have edges that contain a certain weight to represent an arbitrary value such as cost, distance, quantity,  etc.
+This suggests that all edges cannot be treated equally in certain cases.
+USE IN GAME:
+to represent the potential impact or strategic value of certain moves.
+Weights could represent how close a sequence is to completion
+In more advanced AI implementations, weighted graphs can help find paths that maximize player's advantage while minimizing the opponent’s.
+
+
+Connected Graphs vs Disconnected Graphs
+Connected Graphs
+A graph is called connected when a path exist between all of its vertices.
+Disconnected Graphs
+A graph is called connected when a path doesn’t exist between all of its vertices.
+
+
 Graph Representation:
 
 Edge List
@@ -59,3 +75,53 @@ Simplifies game design by managing player interactions and organizing regions.
 - Territory Colouring:  Assigning different colours to neighbouring territories.
 - Player moves: Useful in multiplayer games to minimize conflicts.
 - Puzzle Solving: No two adjacent players have the same colours.
+
+
+Graph Coloring in Board Games:
+involves assigning different colors to the vertices of a graph such that no two adjacent vertices share the same color.
+Simplifies game design by managing player interactions and organizing regions.
+
+Territory Colouring:  Assigning different colours to neighbouring territories.
+Player moves: Useful in multiplayer games to minimize conflicts.
+Puzzle Solving: No two adjacent players have the same colours.
+
+
+Trees and Spanning Trees
+Tree is a simple, connected ,undirected ,acyclic(having  a unique path between any two vertices) graph.
+
+A spanning tree of a graph is a subgraph that includes all vertices of the graph and is a tree.
+- Spanning trees connect all vertices with the minimum possible edges.
+
+In games, spanning trees can help create unique paths with no loops.
+
+
+
+Path Finding:
+Definition:
+	“Pathfinding refers to the process of finding a path from one point (vertex) to another in a graph.”
+
+A path in a graph is a sequence of edges that connects a series of vertices.
+It can be represented as a list of vertices starting from a source node and ending at a destination node, with each consecutive vertex connected by an edge.
+
+
+Shortest Path:
+Definition:
+	“The shortest path is a path between two vertices such that the sum of the weights of the edges in the path is minimized.”
+
+In unweighted graphs, the shortest path is simply the path with the least number of edges.
+In weighted graphs, it’s the path with the minimum total weight.
+
+
+Some Algorithms used for Path Finding
+Dijkstra’s Algorithm
+A* Algorithm
+Bellman-Ford Algorithm
+Floyd-Warshall Algorithm
+Breadth-First Search (BFS)
+Depth-First Search (DFS)
+Johnson’s Algorithm
+
+We have used Breadth-First Search (BFS) in our code..
+
+Breadth-First Search Algorithm (BFS)
+BFS is the best algorithm used for path finding in unweighted graphs.
