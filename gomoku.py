@@ -68,6 +68,16 @@ def player_move(board, symbol):
             print("Invalid move. Try again.")
 
 
+def player2_move(board, symbol):
+    while True:
+        row, col = map(int, input("Enter row and column: ").split())
+        if is_move_valid(board, row, col):
+            board[row][col] = symbol
+            return row, col
+        else:
+            print("Invalid move. Try again.")
+
+
 def list_valid_moves(board):
     return [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if board[r][c] == '.']
 
@@ -94,13 +104,26 @@ def evaluate_board(board, symbol):
     return score
 
 
-# Coding AI for best possible moves:
+# (need more checks for higher difficulty)
+def ai_move(board, symbol):
+    best_move = None
+    best_score = -float('inf')
+    for move in list_valid_moves(board):
+        row, col = move
+        board[row][col] = symbol
+        score = evaluate_board(board, symbol)
+        board[row][col] = '.'
+        if score > best_score:
+            best_score = score
+            best_move = (row, col)
+    return best_move
 
 
 def play_game():
     board = initialize_board(BOARD_SIZE)
     current_player = "TahirBhai"
     ai_symbol = 'X'
+    human2_symbol = 'X'
     human_symbol = 'O'
 
     display_board(board)
@@ -114,14 +137,19 @@ def play_game():
                 print("TahirBhai wins!")
                 break
             current_player = "AI"
+            # current_player = "human_2"
         else:
             print("AI's turn:")
+            # print("player2's turn:")
+            # row, col = player2_move(board, human_symbol)
             row, col = ai_move(board, ai_symbol)
             if row is not None and col is not None:
                 board[row][col] = ai_symbol
+                # board[row][col] = human2_symbol
                 if check_win(board, row, col, ai_symbol):
                     display_board(board)
                     print("AI wins!")
+                    #print("player2 wins!")
                     break
             current_player = "TahirBhai"
 
