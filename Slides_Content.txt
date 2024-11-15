@@ -125,3 +125,14 @@ We have used Breadth-First Search (BFS) in our code..
 
 Breadth-First Search Algorithm (BFS)
 BFS is the best algorithm used for path finding in unweighted graphs.
+
+Recursion :
+recursion is a process or a concept in terms of a simpler or previous version of itself.
+• BASE CASE:
+ a condition that allows an algorithm stops 
+further recursive calls and return a result.
+• Recursive case:
+ It is the part of a recursive function that 
+breaks down a problem into smaller 
+subproblems, which moves the problem closer 
+to the base case.
