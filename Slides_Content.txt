@@ -136,3 +136,13 @@ further recursive calls and return a result.
 breaks down a problem into smaller 
 subproblems, which moves the problem closer 
 to the base case.
+
+HOW RECURSION WORKS:
+• Step By Step :
+Step 2: Step 1 + lowest step.
+Step 3: Step 2 + Step 1 + lowest step.
+Step 4: Step 3 + step 2 + step 1+ lowest step, and so on.
+The smallest argument is donated by f(0) or f(1) .
+The nth argument is donated by f(n). 
+• Example:
+ fibonacci sequence
