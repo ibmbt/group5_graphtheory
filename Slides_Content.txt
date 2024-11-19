@@ -101,6 +101,15 @@ Recursive function:
  Fibonacci(1) returns 1
  Fibonacci(0) returns 0
 
+Recursive Decision-Making
+Evaluate Board
+The algorithm analyzes the current state of the board to identify potential moves.
+Generate Moves
+All valid moves from the current position are generated and considered.
+Recursive Calls
+The algorithm recursively evaluates the resulting board position for each generated move.
+Choose Best Move
+The algorithm selects the move that leads to the most favorable outcome based on the recursive evaluations.
 
 Graph in Board Games
 Most board games are played on a two-dimensional grid. 
