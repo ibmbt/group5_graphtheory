@@ -1,4 +1,7 @@
-BOARD_SIZE = 5
+import os
+os. system('cls')
+
+BOARD_SIZE = 8
 WIN_CONDITION = 5
 
 
@@ -23,39 +26,26 @@ def is_move_valid(board, row, col):
     return is_row_valid and is_col_valid and is_cell_empty
 
 
-def check_direction(board, row, col, symbol, dx, dy, count):
-
-    if count >= WIN_CONDITION:
-        return True
-
-    new_row = row + dx
-    new_col = col + dy
-
-    if (0 <= new_row < BOARD_SIZE) and (0 <= new_col < BOARD_SIZE):
-        if board[new_row][new_col] == symbol:
-            return check_direction(board, new_row, new_col, symbol, dx, dy, count + 1)
-
-    return False
-
+def count_in_direction(board, row, col, symbol, dx, dy):
+    count = 0
+    while 0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE and board[row][col] == symbol:
+        count += 1
+        row += dx
+        col += dy
+    return count
 
 def check_win(board, row, col, symbol):
-    directions = [
-        (0, 1),
-        (1, 0),
-        (1, 1),
-        (1, -1)
-    ]
-
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
     for dx, dy in directions:
-        count = 1
-
-        if check_direction(board, row, col, symbol, dx, dy, count):
+        total_count = (
+            count_in_direction(board, row, col, symbol, dx, dy)
+            + count_in_direction(board, row, col, symbol, -dx, -dy)
+            - 1
+        )
+        if total_count >= WIN_CONDITION:
             return True
-
-        if check_direction(board, row, col, symbol, -dx, -dy, count):
-            return True
-
     return False
+
 
 
 def player_move(board, symbol):
@@ -104,19 +94,134 @@ def evaluate_board(board, symbol):
     return score
 
 
-# (need more checks for higher difficulty)
-def ai_move(board, symbol):
+def minimax(board, depth, is_maximizing, alpha, beta, ai_symbol, human_symbol):
+    # Check for terminal states
+    for row in range(BOARD_SIZE):
+        for col in range(BOARD_SIZE):
+            if board[row][col] != '.':
+                if check_win(board, row, col, ai_symbol):
+                    return 10 - depth
+                if check_win(board, row, col, human_symbol):
+                    return depth - 10
+    
+    if not list_valid_moves(board):
+        return 0
+
+    if depth == 0:
+        return evaluate_board(board, ai_symbol) - evaluate_board(board, human_symbol)
+
+    if is_maximizing:
+        max_eval = -float('inf')
+        for row, col in list_valid_moves(board):
+            board[row][col] = ai_symbol
+            eval = minimax(board, depth - 1, False, alpha, beta, ai_symbol, human_symbol)
+            board[row][col] = '.'
+            max_eval = max(max_eval, eval)
+            alpha = max(alpha, eval)
+            if beta <= alpha:
+                break
+        return max_eval
+    else:
+        min_eval = float('inf')
+        for row, col in list_valid_moves(board):
+            board[row][col] = human_symbol
+            eval = minimax(board, depth - 1, True, alpha, beta, ai_symbol, human_symbol)
+            board[row][col] = '.'
+            min_eval = min(min_eval, eval)
+            beta = min(beta, eval)
+            if beta <= alpha:
+                break
+        return min_eval
+    
+    
+def is_threat(board, row, col, symbol):
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
+
+    for dx, dy in directions:
+        count = 0
+        open_start = open_end = False
+
+
+        x, y = row - dx, col - dy
+        while 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE:
+            if board[x][y] == symbol:
+                count += 1
+            elif board[x][y] == '.':
+                open_start = True
+                break
+            else:
+                break
+            x -= dx
+            y -= dy
+
+
+        x, y = row + dx, col + dy
+        while 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE:
+            if board[x][y] == symbol:
+                count += 1
+            elif board[x][y] == '.':
+                open_end = True
+                break
+            else:
+                break
+            x += dx
+            y += dy
+
+
+        if count == 3 and (open_start or open_end):
+            return True
+
+    return False
+
+
+
+def ai_move(board, ai_symbol):
+    human_symbol = 'O' if ai_symbol == 'X' else 'X'
+    
+
+    for row, col in list_valid_moves(board):
+        board[row][col] = ai_symbol
+        if check_win(board, row, col, ai_symbol):
+            board[row][col] = '.'
+            return row, col
+        board[row][col] = '.' 
+    
+
+    for row, col in list_valid_moves(board):
+        board[row][col] = human_symbol
+        if check_win(board, row, col, human_symbol):
+            board[row][col] = '.'
+            return row, col
+        board[row][col] = '.'
+
+    
+        for row, col in list_valid_moves(board):
+            if is_threat(board, row, col, human_symbol):
+                return row, col
+        
+
     best_move = None
     best_score = -float('inf')
-    for move in list_valid_moves(board):
-        row, col = move
-        board[row][col] = symbol
-        score = evaluate_board(board, symbol)
-        board[row][col] = '.'
-        if score > best_score:
-            best_score = score
+    
+    for row, col in list_valid_moves(board):
+        board[row][col] = ai_symbol
+        move_score = minimax(
+            board,
+            depth=1,
+            is_maximizing=False,
+            alpha=-float('inf'),
+            beta=float('inf'),
+            ai_symbol=ai_symbol,
+            human_symbol=human_symbol
+        )
+        board[row][col] = '.' 
+        if move_score > best_score:
+            best_score = move_score
             best_move = (row, col)
-    return best_move
+    
+    if best_move:
+        return best_move
+    
 
 
 def play_game():
